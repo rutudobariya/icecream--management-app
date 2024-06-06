@@ -16,6 +16,8 @@ import PageNotFound from './components/PageNotFound';
 import ProductDetails from './components/ProductDetails';
 import Checkout from './components/Checkout';
 import ViewCart from './components/ViewCart';
+import OrderSuccess from './components/OrderSuccess';
+
 // fruit managements admin panel components
 import AdminLogin from './components/admin/AdminLogin';
 import AdminLayout from './AdminLayout';
@@ -49,7 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/product-details/:id' element=<ProductDetails /> />
         <Route path='/view-cart' element=<ViewCart /> />
         <Route path='/checkout' element=<Checkout /> />
-
+         <Route path='/order-sucess' element=<OrderSuccess /> />
         <Route path='*' element=<PageNotFound /> />
         <Route path='/admin-login' element=<AdminLogin /> />
         <Route path='/admin-login/admin-dashboard' element=<AdminLayout /> />

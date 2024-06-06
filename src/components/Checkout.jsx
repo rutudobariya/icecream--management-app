@@ -42,7 +42,7 @@ export default function Checkout() {
             text: 'Placed Successfully',
         });
         setTimeout(() => {
-            window.location = "/";
+            window.location = "/order-sucess";
         }, 2000);
     };
 

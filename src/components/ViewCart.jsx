@@ -47,47 +47,48 @@ return (
 <Header />
 <Navbar />
 
-<div className="container-fluid py-5">
-<div className="container card py-5">
-<div className='card-header'>View Cart()</div>
-<div className='card-body'>
 
-<table className='table table-responsive' width="90%">
-    <tr>
-    <th>Photo</th>
-    <th>Name</th>
-    <th>OfferPrice</th>
-    <th>qty</th>
-    <th>Subtotal</th>
-    <th>Action</th>
-    </tr>
+<Container fluid="true" id='cart'>
+        <Row className='px-3 py-3 py-md-5 py-lg-5'>
+          <Col sm={11} md={7} lg={7} className='col-12 mx-auto carttable p-0'>
+              <table className='table table-striped table-bordered'>
+                <thead align="center" className="tablehead">
+                  <tr>
+                    <th className='bg-dark text-white'>Products</th>
+                    <th className='bg-dark text-white'>Price(&#8377;)</th>
+                    <th className='bg-dark text-white'>Photo</th>
+                    <th className='bg-dark text-white'>Quantity</th>
+                    <th className='bg-dark text-white'>Total(&#8377;)</th>
+                    <th className='bg-dark text-white'>Remove</th>
+                  </tr>
+                </thead>
 
-    {data && data.map((items,cartindex)=>{
-        return (
-            <>
-            <tr>
-               <td><img src="" alt='cartphoto' className='img-fluid w-25' /></td>
-               <td>{items.productname}</td>
-               <td>{items.newprice}</td>
-               <td>
+                <tbody align="center">
+                  {data && data.map((item,cartindex) => {
+                    return (
+                      <tr key={item.id}>
+                        <td>{item.productname}</td>
+                        <td>{item.newprice}</td>
+                        <td><img src={item.productimage} alt="product image" style={{ width: "50px", height: "70px" }} /></td>
+                        <td>
                           <InputGroup className='quantity'>
                             <Button variant='primary' className="btn-minus rounded-0 py-1 d-flex justify-content-center align-items-center"  onClick={() => {
                               const Incqty = data.map((item, index) => {
-                                return cartindex === index ? {...item, qty : parseInt(items.qty) - 1} : item
+                                return cartindex === index ? {...item, qty : parseInt(item.qty) - 1} : item
                               })
                               setData(Incqty)
                             }}>
                               <i className="fa fa-minus"></i>
                             </Button>
                             <Form.Control
-                              value={items.qty}
+                              value={item.qty}
                               className='rounded-0 text-center qty'
                               readOnly
                               minLength="0"
                             />
                             <button className="btn btn-sm btn-primary btn-plus rounded-0 py-1 d-flex justify-content-center align-items-center" onClick={() => {
                               const Incqty = data.map((item, index) => {
-                                return cartindex === index ? {...item, qty : parseInt(items.qty) + 1} : item
+                                return cartindex === index ? {...item, qty : parseInt(item.qty) + 1} : item
                               })
                               setData(Incqty)
                             }}>
@@ -95,19 +96,15 @@ return (
                             </button>
                           </InputGroup>
                         </td>
-                        <td>{items.newprice * items.qty}</td>
-                        <td><i className='fa fa-trash text-danger fs-4' onClick={() => DeletProduct(items.id)}></i></td>
-                        {/* <td><button type='button' className='btn btn-sm btn-danger bg-danger text-white'><span className='bi bi-cart'></span></button></td> */}
-            </tr>         
-            </>
-        )
-    })}
-    </table>
-
-</div>
-</div>
-</div>
-     <Col sm={11} md={4} lg={4} className='col-12 mx-auto h-100'>
+                        <td>{item.newprice * item.qty}</td>
+                        <td><i className='fa fa-trash text-danger fs-4' onClick={() => DeletProduct(item.id)}></i></td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+          </Col>
+          <Col sm={11} md={4} lg={4} className='col-12 mx-auto h-100'>
             <div className='mt-3 mt-md-0 mt-lg-0'>
               <div className='pb-3 added'>
                 <h3><span className='text-primary'>{data.length}</span> Products Added In Cart</h3>
@@ -122,7 +119,7 @@ return (
                 </Button>
               </InputGroup>
             </div>
-<div className='border border-black'>
+            <div className='border border-black'>
               <h4 className='bg-dark text-white p-3 m-0'>Cart Summary</h4>
               <Col className=" d-flex">
                 <p className='rounded-0 py-3 m-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 border-black text-center w-50'
@@ -139,20 +136,17 @@ return (
                 &#8377; 00
                 </p>
               </Col>
-
-              </div>
+              <div>
               <Link to="/checkout">
                 <Button variant='warning' className='w-100 rounded-0 py-2 fs-5' >
                   CheckOut
                 </Button>
                 </Link>
-                </Col>
-  
-    {/* <tr>
-        <td colSpan="6">
-            <h3 className='bg-dark text-white w-75 p-2 float-end'>Subtotal of Products Rs. {} </h3>
-        </td>
-    </tr> */}
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
 
 
 <Footer />

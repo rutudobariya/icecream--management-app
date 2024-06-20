@@ -10,6 +10,7 @@ export default function ProductDetails() {
 const[data,setManageData]=useState([]);
 const Navigate=useNavigate();
 const {id}=useParams();
+const productimages=useRef("");
 const productimage=useRef("");
 const productname=useRef("");
 const oldprice=useRef("");
@@ -29,7 +30,7 @@ const AddCartFormHandeler=(e)=>{
     newprice:newprice.current.value,
     qty:qty.current.value,
     descriptions:descriptions.current.value,
-    // subtotal:subtotal.current.value,   
+    subtotal:subtotal.current.value,   
   }
     // call api to add in cart
     axios.post(`http://localhost:4000/view-cart`,insert).then(()=>{
@@ -50,13 +51,14 @@ useEffect(()=>{
 //get api to fetch data using axios.get() 
 axios.get(`http://localhost:4000/addproducts/${id}`).then((response)=>{
 
-productimage.current.src=response.data.productimage,
+productimages.current.src=response.data.productimage,
+productimage.current.value=response.data.productimage,
 productname.current.value=response.data.productname,
 oldprice.current.value=response.data.oldprice,
 newprice.current.value=response.data.newprice,
 qty.current.value=response.data.qty,
-descriptions.current.value=response.data.descriptions
-// subtotal.current.value=response.data.newprice
+descriptions.current.value=response.data.descriptions,
+subtotal.current.value=response.data.newprice
 
 });
 // pass messages
@@ -88,7 +90,8 @@ Icecream Details
 <form onSubmit={AddCartFormHandeler}>
 <div className="row">
 <div className='col-lg-4'>
-<img src={productimage}  ref={productimage} alt='image' style={{width:"100%"}} />
+<input type='hidden' ref={productimage} />
+<img src={productimages}  ref={productimages} alt='image' style={{width:"100%"}} />
 </div>
 <div className='col-lg-6 mt-2 ms-5 p-2'>
 <h5 className="font-weight-bold mb-4"><input type='text' readOnly ref={productname} style={{border:"none" }} /></h5>
@@ -97,7 +100,7 @@ Icecream Details
 
 <h6 className="font-weight-bold mb-4">Select QTY :<input type='number' min='1' max='10' ref={qty} style={{width:"80px"}} /></h6>
 
-{/* <h6 className="font-weight-bold mb-4 fs-3">Subtotals of Products :<input type='text' min='1' max='10' ref={subtotal} style={{width:"80px",border:"none"}} /></h6> */}
+<h6 className="font-weight-bold mb-4 fs-3">Subtotals of Products :<input type='text' min='1' max='10' ref={subtotal} style={{width:"80px",border:"none"}} /></h6>
 
 <h6 className="font-weight-bold mb-4 mt-3">Descriptions : <br/> <br/><textarea   ref={descriptions} style={{width:"100%",border:"none"}}></textarea></h6>
 
